@@ -1,0 +1,21 @@
+[package]
+name = "harness"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+comfy-table = { workspace = true }
+indicatif = { workspace = true }
+jiff = { workspace = true }
+log = { workspace = true }
+mollusk-svm = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+solana-account = { workspace = true }
+solana-instruction = { workspace = true }
+solana-pubkey = { workspace = true }
+solana-sdk-ids = { workspace = true }

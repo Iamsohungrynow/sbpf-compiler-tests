@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "programs": [
+    {
+      "name": "function-pointer",
+      "benchmarks": [
+        {
+          "name": "bench-function-pointer",
+          "expected_compute_units": 32
+        }
+      ]
+    },
+    {
+      "name": "pointer-table",
+      "benchmarks": [
+        {
+          "name": "bench-pointer-table",
+          "expected_compute_units": 15
+        }
+      ]
+    },
+    {
+      "name": "rodata-alignment",
+      "benchmarks": []
+    },
+    {
+      "name": "dyn-pointer",
+      "benchmarks": []
+    },
+    {
+      "name": "struct-table",
+      "benchmarks": []
+    }
+  ]
+}
