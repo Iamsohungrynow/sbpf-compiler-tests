@@ -30,6 +30,10 @@
     {
       "name": "struct-table",
       "benchmarks": []
+    },
+    {
+      "name": "alloc",
+      "benchmarks": []
     }
   ]
 }
