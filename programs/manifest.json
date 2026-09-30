@@ -24,6 +24,100 @@
       "benchmarks": []
     },
     {
+      "name": "const-rodata",
+      "benchmarks": [
+        {
+          "name": "bench-const-direct",
+          "expected_compute_units": 16
+        },
+        {
+          "name": "bench-const-match",
+          "expected_compute_units": 20
+        },
+        {
+          "name": "bench-static-direct",
+          "expected_compute_units": 18
+        },
+        {
+          "name": "bench-static-match",
+          "expected_compute_units": 19
+        },
+        {
+          "name": "bench-by-value-match",
+          "expected_compute_units": 20
+        },
+        {
+          "name": "bench-mixed-match",
+          "expected_compute_units": 21
+        }
+      ]
+    },
+    {
+      "name": "input-loads",
+      "benchmarks": [
+        {
+          "name": "bench-input-loads-small",
+          "expected_compute_units": 19
+        },
+        {
+          "name": "bench-input-loads-large",
+          "expected_compute_units": 31
+        }
+      ]
+    },
+    {
+      "name": "jmp32",
+      "benchmarks": [
+        {
+          "name": "bench-jmp32",
+          "expected_compute_units": 5
+        }
+      ]
+    },
+    {
+      "name": "stack-args-six",
+      "benchmarks": [
+        {
+          "name": "bench-stack-args-six",
+          "expected_compute_units": 39
+        }
+      ]
+    },
+    {
+      "name": "panic-text-unlikely",
+      "benchmarks": [
+        {
+          "name": "bench-panic-path",
+          "expected_compute_units": 17
+        },
+        {
+          "name": "bench-bounds-check",
+          "expected_compute_units": 18
+        },
+        {
+          "name": "bench-unwrap-case",
+          "expected_compute_units": 16
+        },
+        {
+          "name": "bench-named-call",
+          "expected_compute_units": 22
+        }
+      ]
+    },
+    {
+      "name": "dfe-recursive",
+      "benchmarks": [
+        {
+          "name": "bench-dfe-factorial",
+          "expected_compute_units": 87
+        },
+        {
+          "name": "bench-dfe-mutual",
+          "expected_compute_units": 46
+        }
+      ]
+    },
+    {
       "name": "dyn-pointer",
       "benchmarks": []
     },

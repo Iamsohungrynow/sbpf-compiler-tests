@@ -15,6 +15,12 @@ harness = { workspace = true }
 clap = { workspace = true }
 function-pointer = { path = "programs/function-pointer" }
 pointer-table = { path = "programs/pointer-table" }
+const-rodata = { path = "programs/const-rodata" }
+input-loads = { path = "programs/input-loads" }
+jmp32 = { path = "programs/jmp32" }
+stack-args-six = { path = "programs/stack-args-six" }
+panic-text-unlikely = { path = "programs/panic-text-unlikely" }
+dfe-recursive = { path = "programs/dfe-recursive" }
 
 [lints]
 workspace = true
