@@ -15,34 +15,27 @@ fn styled_table() -> Table {
     table
 }
 
-pub(crate) fn print_terminal(report: &Report, saved_artifacts: bool, artifacts_dir: &str) {
-    println!();
-    println!("{}", "─".repeat(33));
-    println!("\tBenchmark Report");
-    println!("{}", "─".repeat(33));
+pub(crate) fn render(report: &Report) -> String {
+    let mut out = String::new();
+    out.push('\n');
+    out.push_str(&"─".repeat(33));
+    out.push('\n');
+    out.push_str("\tBenchmark Report\n");
+    out.push_str(&"─".repeat(33));
 
-    println!();
-    println!("Compiler");
-    println!("{}", compiler_table(report));
+    out.push_str("\n\nCompiler\n");
+    out.push_str(&format!("{}\n", compiler_table(report)));
 
-    println!();
-    let benchmarks = benchmark_table(report);
-    println!("Benchmarks");
-    println!("{benchmarks}");
+    out.push_str("\nBenchmarks\n");
+    out.push_str(&format!("{}\n", benchmark_table(report)));
 
-    println!();
-    let tests = test_table(report);
-    println!("Tests");
-    println!("{tests}");
+    out.push_str("\nTests\n");
+    out.push_str(&format!("{}\n", test_table(report)));
 
-    println!();
-    println!("Summary");
-    println!("{}", summary_table(report));
-
-    println!();
-    if saved_artifacts {
-        println!("[WARN] Issues detected! Artifacts generated at: {artifacts_dir}.");
-    }
+    out.push_str("\nSummary\n");
+    out.push_str(&format!("{}\n", summary_table(report)));
+    out.push('\n');
+    out
 }
 
 fn compiler_table(report: &Report) -> Table {

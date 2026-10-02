@@ -12,10 +12,9 @@ use std::{
     env,
     error::Error,
     ffi::OsString,
-    fmt, io,
+    fmt, fs, io,
     path::{Path, PathBuf},
     process::Output,
-    time::{SystemTime, UNIX_EPOCH},
 };
 
 pub use mollusk_svm::Mollusk;
@@ -85,10 +84,17 @@ pub fn run(
     let packages = manifest::load_packages(root)?;
     manifest::validate(&manifest, &packages)?;
     let compiler_version = compiler.version()?;
-    let run_timestamp = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map(|duration| u64::try_from(duration.as_millis()).unwrap_or_default())
-        .unwrap_or_default();
+    let now = jiff::Zoned::now();
+    let run_timestamp = format!(
+        "{:04}-{:02}-{:02}_{:02}-{:02}-{:02}-{:03}",
+        now.year(),
+        now.month(),
+        now.day(),
+        now.hour(),
+        now.minute(),
+        now.second(),
+        now.millisecond(),
+    );
 
     let (report, saved_artifacts) = {
         let (programs, saved_artifacts) = runner::run_programs(
@@ -97,7 +103,7 @@ pub fn run(
             registrations,
             &manifest,
             &packages,
-            run_timestamp,
+            &run_timestamp,
         )?;
 
         (
@@ -110,12 +116,20 @@ pub fn run(
     };
     let artifacts_dir = Path::new("/tmp")
         .join(compiler.tool_name())
-        .join(run_timestamp.to_string());
-    report::print_terminal(
-        &report,
-        saved_artifacts,
-        &artifacts_dir.display().to_string(),
-    );
+        .join(&run_timestamp);
+    let rendered = report::render(&report);
+    println!("{rendered}");
+    if saved_artifacts {
+        println!(
+            "[WARN] Issues detected! Artifacts generated at: {}.",
+            artifacts_dir.display()
+        );
+        // Save report to artifacts.
+        let report_path = artifacts_dir.join(format!("sbpf_test_report_{run_timestamp}.txt"));
+        if let Err(error) = fs::write(&report_path, rendered) {
+            eprintln!("warning: failed to write report.txt: {error}");
+        }
+    }
     Ok(())
 }
 

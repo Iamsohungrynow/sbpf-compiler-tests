@@ -38,7 +38,7 @@ pub(crate) fn run_programs(
     registrations: &[ProgramRegistration],
     manifest: &Manifest,
     packages: &BTreeMap<String, ProgramPackage>,
-    run_timestamp: u64,
+    run_timestamp: &str,
 ) -> Result<(Vec<ProgramReport>, bool), Box<dyn Error>> {
     let mut runners = BTreeMap::new();
     for registration in registrations {
@@ -138,7 +138,7 @@ pub(crate) fn run_programs(
         }
         let log_path = Path::new("/tmp")
             .join(compiler.tool_name())
-            .join(run_timestamp.to_string())
+            .join(run_timestamp)
             .join("log.txt");
         if let Err(error) = fs::write(&log_path, log_content) {
             eprintln!("warning: failed to write log.txt: {error}");
@@ -323,10 +323,10 @@ fn execute_program(
     })
 }
 
-fn save_artifact(compiler: Compiler, program_name: &str, elf_path: &Path, run_timestamp: u64) {
+fn save_artifact(compiler: Compiler, program_name: &str, elf_path: &Path, run_timestamp: &str) {
     let artifacts_dir = Path::new("/tmp")
         .join(compiler.tool_name())
-        .join(run_timestamp.to_string())
+        .join(run_timestamp)
         .join(program_name);
     if let Err(error) = fs::create_dir_all(&artifacts_dir) {
         eprintln!(

@@ -71,6 +71,7 @@ fn run_version_command(
     Ok(stdout
         .lines()
         .filter(|line| !line.trim().is_empty())
+        .take(2)
         .map(|line| match line.split_once(' ') {
             Some((label, version)) => (label.to_owned(), version.to_owned()),
             None => (line.to_owned(), String::new()),
