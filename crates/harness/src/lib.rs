@@ -21,6 +21,7 @@ pub use mollusk_svm::Mollusk;
 pub use mollusk_svm::result::Check;
 pub use solana_account::Account;
 pub use solana_instruction::Instruction;
+pub use solana_instruction::error::InstructionError;
 pub use solana_pubkey::Pubkey;
 
 /// Environment variable which contains the absolute path of the program ELF to load

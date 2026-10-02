@@ -101,7 +101,7 @@ fn benchmark_table(report: &Report) -> Table {
         .set_content_arrangement(ContentArrangement::Dynamic);
     for program in &report.programs {
         for benchmark in &program.benchmarks {
-            let measured = benchmark.error.is_none();
+            let measured = benchmark.measured;
             table.add_row(vec![
                 Cell::new(&program.name),
                 Cell::new(&benchmark.name),

@@ -397,9 +397,20 @@ fn benchmark_reports(
 
 fn benchmark_report(expected: &ExpectedBenchmark, result: BenchmarkResult) -> BenchmarkReport {
     let baseline = expected.expected_compute_units;
-    let error = result.error.as_deref().map(error_text);
+    let actual_error = result.error.as_deref().map(error_text);
+    let error = match (&expected.expected_error, &actual_error) {
+        (None, error) => error.clone(),
+        (Some(expected_error), Some(actual_error)) if actual_error == expected_error => None,
+        (Some(expected_error), Some(actual_error)) => Some(format!(
+            "expected error `{expected_error}`, got `{actual_error}`"
+        )),
+        (Some(expected_error), None) => {
+            Some(format!("expected error `{expected_error}`, got None"))
+        }
+    };
     BenchmarkReport {
         name: expected.name.clone(),
+        measured: true,
         expected_compute_units: baseline,
         actual_compute_units: result.compute_units,
         delta_compute_units: result.compute_units as i64 - baseline as i64,
@@ -418,6 +429,7 @@ fn failed_benchmark_reports(expected: &ExpectedProgram, message: &str) -> Vec<Be
 fn benchmark_error_row(benchmark: &ExpectedBenchmark, message: &str) -> BenchmarkReport {
     BenchmarkReport {
         name: benchmark.name.clone(),
+        measured: false,
         expected_compute_units: benchmark.expected_compute_units,
         actual_compute_units: 0,
         delta_compute_units: 0,

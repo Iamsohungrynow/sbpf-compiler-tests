@@ -31,6 +31,8 @@ pub(crate) struct ExpectedProgram {
 pub(crate) struct ExpectedBenchmark {
     pub(crate) name: String,
     pub(crate) expected_compute_units: u64,
+    #[serde(default)]
+    pub(crate) expected_error: Option<String>,
 }
 
 pub(crate) fn load(path: &Path) -> Result<Manifest, Box<dyn Error>> {

@@ -6,6 +6,7 @@ pub(crate) struct Report {
 #[derive(Debug)]
 pub(crate) struct BenchmarkReport {
     pub(crate) name: String,
+    pub(crate) measured: bool,
     pub(crate) expected_compute_units: u64,
     pub(crate) actual_compute_units: u64,
     pub(crate) delta_compute_units: i64,

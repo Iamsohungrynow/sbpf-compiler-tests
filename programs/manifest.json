@@ -128,6 +128,20 @@
     {
       "name": "alloc",
       "benchmarks": []
+    },
+    {
+      "name": "error-handling",
+      "benchmarks": [
+        {
+          "name": "bench-error-handling-success",
+          "expected_compute_units": 27
+        },
+        {
+          "name": "bench-error-handling-fail",
+          "expected_compute_units": 130,
+          "expected_error": "custom program error: 0xc"
+        }
+      ]
     }
   ]
 }

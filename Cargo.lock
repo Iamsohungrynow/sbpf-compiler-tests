@@ -1047,6 +1047,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "error-handling"
+version = "0.1.0"
+dependencies = [
+ "harness",
+ "solana-compiler-builtins",
+]
+
+[[package]]
 name = "feature-probe"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2069,6 +2077,7 @@ dependencies = [
  "clap",
  "const-rodata",
  "dfe-recursive",
+ "error-handling",
  "function-pointer",
  "harness",
  "input-loads",

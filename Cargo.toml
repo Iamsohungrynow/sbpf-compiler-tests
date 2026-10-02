@@ -21,6 +21,7 @@ jmp32 = { path = "programs/jmp32" }
 stack-args-six = { path = "programs/stack-args-six" }
 panic-text-unlikely = { path = "programs/panic-text-unlikely" }
 dfe-recursive = { path = "programs/dfe-recursive" }
+error-handling = { path = "programs/error-handling" }
 
 [lints]
 workspace = true
