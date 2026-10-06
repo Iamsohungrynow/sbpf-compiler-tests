@@ -146,6 +146,10 @@
     {
       "name": "alu32-extension",
       "benchmarks": []
+    },
+    {
+      "name": "ptoken",
+      "benchmarks": []
     }
   ]
 }
