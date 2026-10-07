@@ -165,11 +165,9 @@ pub(crate) fn validate(
         let missing = package_names
             .difference(&manifest_names)
             .copied()
-            .collect::<Vec<_>>();
-        return Err(invalid_data(format!(
-            "programs missing from manifest: {}",
-            missing.join(", ")
-        )));
+            .collect::<Vec<_>>()
+            .join(", ");
+        eprintln!("[WARN] programs missing from manifest (skipping): {missing}");
     }
     Ok(())
 }

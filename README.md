@@ -2,18 +2,26 @@
 
 A workflow for building, testing, and benchmarking sBPF programs. Each program is compiled using the selected compiler, followed by execution of its Mollusk tests and benchmarks. The results are aggregated and displayed in a single report in the terminal.
 
+## Installation
+
+Install from source:
+
+```bash
+cargo install --git https://github.com/blueshift-gg/sbpf-compiler-tests --locked
+```
+
 ## Usage
 
 ```bash
-cargo run
+sbpf-compiler-tests
 ```
 
 ## Compilers
 
-The runner accepts an optional `compiler` flag (defaults to `cargo-build-sbpf`):
+The test suite accepts an optional `compiler` flag (defaults to `cargo-build-sbpf`):
 
 ```bash
-cargo run -- --compiler=cargo-build-sbpf
+sbpf-compiler-tests --compiler=cargo-build-sbpf
 ```
 
 The supported compilers are:
@@ -22,6 +30,17 @@ The supported compilers are:
 |---|---|
 | `cargo-build-sbpf` | `cargo build-sbpf` (nightly Rust + `sbpf-linker`)
 | `cargo-build-sbf` | `cargo build-sbf --arch v3` (Solana platform tools)
+
+### Using Local Compiler
+
+A local version of the selected compiler can be used by running the test suite
+from the root of the compiler repository with the `--local` flag:
+
+```bash
+sbpf-compiler-tests --local
+```
+
+The compiler is then built locally with `cargo build`, and the binary from its `target` directory is used for the run instead of the globally installed compiler.
 
 
 ## Programs and Manifest

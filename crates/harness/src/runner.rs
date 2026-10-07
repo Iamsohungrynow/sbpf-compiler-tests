@@ -1,8 +1,10 @@
-use std::collections::{BTreeMap, BTreeSet};
-use std::error::Error;
-use std::fs;
-use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::{
+    collections::{BTreeMap, BTreeSet},
+    error::Error,
+    fs,
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 use crate::{
     BenchmarkResult, BenchmarkRunner, Mollusk, ProgramRegistration, Pubkey, cargo,
@@ -39,6 +41,7 @@ pub(crate) fn run_programs(
     manifest: &Manifest,
     packages: &BTreeMap<String, ProgramPackage>,
     run_timestamp: &str,
+    binary: &Path,
 ) -> Result<(Vec<ProgramReport>, bool), Box<dyn Error>> {
     let mut runners = BTreeMap::new();
     for registration in registrations {
@@ -68,6 +71,7 @@ pub(crate) fn run_programs(
             expected,
             package,
             runners.get(expected.name.as_str()).copied(),
+            binary,
         )?);
     }
 
@@ -154,11 +158,12 @@ fn prepare_program<'a>(
     expected: &'a ExpectedProgram,
     package: &ProgramPackage,
     runner: Option<BenchmarkRunner>,
+    binary: &Path,
 ) -> Result<PreparedProgram<'a>, Box<dyn Error>> {
     let program_id = program_id(manifest_index)?;
 
     let program_dir = root.join("programs").join(&expected.name);
-    let status = Command::new(cargo())
+    let status = Command::new(binary)
         .arg(compiler.subcommand())
         .args(compiler.build_args())
         .current_dir(&program_dir)
