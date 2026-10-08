@@ -11,7 +11,7 @@ crate-type = ["cdylib", "lib"]
 workspace = true
 
 [target.'cfg(target_arch = "bpf")'.dependencies]
-solana-compiler-builtins = { git = "https://github.com/blueshift-gg/solana-compiler-builtins", version = "0.1.0" }
+solana-compiler-builtins = { workspace = true }
 
 [target.'cfg(not(any(target_arch = "bpf", target_os = "solana")))'.dependencies]
 harness = { workspace = true }

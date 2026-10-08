@@ -52,25 +52,27 @@ impl Compiler {
         }
     }
 
-    pub(crate) fn version(self) -> Result<Vec<(String, String)>, Box<dyn Error>> {
-        let cargo = cargo().to_string_lossy().into_owned();
+    pub(crate) fn version(self, binary: &Path) -> Result<Vec<(String, String)>, Box<dyn Error>> {
         match self {
             Self::CargoBuildSbpf => {
-                let mut versions = run_version_command(&cargo, &[self.subcommand(), "--version"])?;
-                versions.extend(run_version_command("sbpf-linker", &["--version"])?);
-                versions.extend(run_version_command("rustc", &["--version"])?);
+                let mut versions = run_version_command(binary, &[self.subcommand(), "--version"])?;
+                versions.extend(run_version_command(
+                    Path::new("sbpf-linker"),
+                    &["--version"],
+                )?);
+                versions.extend(run_version_command(Path::new("rustc"), &["--version"])?);
                 Ok(versions)
             }
-            Self::CargoBuildSbf => run_version_command(&cargo, &[self.subcommand(), "--version"]),
+            Self::CargoBuildSbf => run_version_command(binary, &[self.subcommand(), "--version"]),
         }
     }
 }
 
 fn run_version_command(
-    command: &str,
+    command: &Path,
     args: &[&str],
 ) -> Result<Vec<(String, String)>, Box<dyn Error>> {
-    let description = format!("{} {}", command, args.join(" "));
+    let description = format!("{} {}", command.to_string_lossy(), args.join(" "));
     let output = Command::new(command).args(args).output()?;
     if !output.status.success() {
         return Err(command_error(&description, &output));
@@ -85,4 +87,21 @@ fn run_version_command(
             None => (line.to_owned(), String::new()),
         })
         .collect())
+}
+
+pub fn build_local_compiler(compiler: Compiler) -> Result<PathBuf, Box<dyn Error>> {
+    let status = Command::new(cargo())
+        .args(["build", "-p", compiler.tool_name()])
+        .status()
+        .map_err(|error| format!("failed to run `cargo build`: {error}"))?;
+    if !status.success() {
+        return Err(format!(
+            "failed to build `{}` locally, make sure the current directory is its root",
+            compiler.tool_name()
+        )
+        .into());
+    }
+
+    let binary = Path::new("target/debug").join(compiler.tool_name());
+    Ok(binary.canonicalize()?)
 }

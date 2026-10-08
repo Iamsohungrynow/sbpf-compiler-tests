@@ -1,7 +1,4 @@
 mod compiler;
-
-pub use compiler::Compiler;
-
 mod logging;
 mod manifest;
 mod model;
@@ -23,6 +20,9 @@ pub use solana_account::Account;
 pub use solana_instruction::Instruction;
 pub use solana_instruction::error::InstructionError;
 pub use solana_pubkey::Pubkey;
+
+pub use compiler::Compiler;
+pub use compiler::build_local_compiler;
 
 /// Environment variable which contains the absolute path of the program ELF to load
 pub(crate) const SBPF_PROGRAM_ELF_ENV: &str = "SBPF_PROGRAM_ELF";
@@ -78,13 +78,17 @@ impl ProgramRegistration {
 pub fn run(
     root: &Path,
     compiler: Compiler,
+    local_binary: Option<PathBuf>,
     registrations: &[ProgramRegistration],
 ) -> Result<(), Box<dyn Error>> {
     logging::init();
+    let binary = local_binary
+        .as_deref()
+        .unwrap_or_else(|| Path::new(compiler.tool_name()));
     let manifest = manifest::load(&root.join("programs/manifest.json"))?;
     let packages = manifest::load_packages(root)?;
     manifest::validate(&manifest, &packages)?;
-    let compiler_version = compiler.version()?;
+    let compiler_version = compiler.version(&binary)?;
     let now = jiff::Zoned::now();
     let run_timestamp = format!(
         "{:04}-{:02}-{:02}_{:02}-{:02}-{:02}-{:03}",
@@ -105,6 +109,7 @@ pub fn run(
             &manifest,
             &packages,
             &run_timestamp,
+            &binary,
         )?;
 
         (

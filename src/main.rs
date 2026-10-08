@@ -25,13 +25,29 @@ struct Arguments {
     /// Compiler used to build the programs.
     #[arg(long, value_enum, default_value = "cargo-build-sbpf")]
     compiler: CompilerArg,
+
+    /// Build the selected compiler locally from the current root.
+    #[arg(long)]
+    local: bool,
 }
 
 fn main() -> ExitCode {
     let arguments = Arguments::parse();
+    let local_binary = if arguments.local {
+        match harness::build_local_compiler(arguments.compiler.into()) {
+            Ok(binary) => Some(binary),
+            Err(error) => {
+                eprintln!("error: {error}");
+                return ExitCode::FAILURE;
+            }
+        }
+    } else {
+        None
+    };
     match harness::run(
         Path::new(env!("CARGO_MANIFEST_DIR")),
         arguments.compiler.into(),
+        local_binary,
         &registrations(),
     ) {
         Ok(()) => ExitCode::SUCCESS,
