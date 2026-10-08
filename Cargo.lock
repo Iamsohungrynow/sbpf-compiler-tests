@@ -2428,7 +2428,8 @@ dependencies = [
 [[package]]
 name = "solana-compiler-builtins"
 version = "0.1.0"
-source = "git+https://github.com/blueshift-gg/solana-compiler-builtins#1005f417d68c8c7e65fc4b3c05075bd80886f093"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a05ae1c52e1cf15f910d6206744427639bd99174bd79e2ec377071ebc736fa8"
 
 [[package]]
 name = "solana-compute-budget"
