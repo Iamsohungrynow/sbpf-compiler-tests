@@ -1,0 +1,45 @@
+[package]
+name = "ptoken"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+logging = []
+
+[lints]
+workspace = true
+
+[target.'cfg(any(target_arch = "bpf", target_os = "solana"))'.dependencies]
+pinocchio = "=0.9.3"
+pinocchio-log = { version = "0.5.1", default-features = false }
+pinocchio-pubkey = "0.3"
+pinocchio-token-interface = { path = "interface" }
+
+[target.'cfg(target_arch = "bpf")'.dependencies]
+solana-compiler-builtins = { workspace = true }
+
+[dev-dependencies]
+harness = { workspace = true }
+solana-instruction = { workspace = true }
+assert_matches = "1.5.0"
+mollusk-svm = { workspace = true }
+pinocchio-token-interface = { path = "interface" }
+solana-account = { workspace = true }
+solana-keypair = "3.0.0"
+solana-program-error = "3.0.0"
+solana-program-option = "3.0.0"
+solana-program-pack = "3.0.0"
+solana-program-test = { version = "=4.2.1", features = ["agave-unstable-api"] }
+solana-pubkey = { workspace = true }
+solana-rent = "4.2.1"
+solana-signer = "3.0.0"
+solana-transaction = "4.1.4"
+solana-transaction-error = "3.0.0"
+solana-system-interface = { version = "2.0", features = ["bincode"] }
+spl-token-interface = "3.0.0"
+spl-token-2022-interface = "2"
