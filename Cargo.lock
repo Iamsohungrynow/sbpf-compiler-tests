@@ -2057,6 +2057,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "escrow"
+version = "0.1.0"
+dependencies = [
+ "harness",
+ "mollusk-svm",
+ "mollusk-svm-programs-token",
+ "pinocchio 0.9.3",
+ "pinocchio-associated-token-account",
+ "pinocchio-pubkey",
+ "pinocchio-system",
+ "pinocchio-token",
+ "solana-account 4.3.2",
+ "solana-compiler-builtins",
+ "solana-instruction",
+ "solana-program-pack",
+ "solana-pubkey 4.2.1",
+ "spl-associated-token-account-interface",
+ "spl-token-interface 2.0.0",
+]
+
+[[package]]
 name = "fast-math"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3421,6 +3442,36 @@ dependencies = [
 ]
 
 [[package]]
+name = "mollusk-svm-programs-token"
+version = "0.15.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a71fd6d8b0e97f080cc89a6267fcfe317fa45d6e26fe4cbd229ddf488e1281d6"
+dependencies = [
+ "mollusk-svm",
+ "mollusk-svm-programs-token-2022",
+ "solana-account 4.3.2",
+ "solana-program-pack",
+ "solana-pubkey 4.2.1",
+ "solana-rent",
+ "spl-associated-token-account-interface",
+ "spl-token-interface 2.0.0",
+]
+
+[[package]]
+name = "mollusk-svm-programs-token-2022"
+version = "0.15.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a7915f5f5032aa7b856575fdad6c2639a928fd40d41f052716b255f52b6a03f4"
+dependencies = [
+ "mollusk-svm",
+ "solana-account 4.3.2",
+ "solana-program-pack",
+ "solana-pubkey 4.2.1",
+ "solana-rent",
+ "spl-token-interface 2.0.0",
+]
+
+[[package]]
 name = "mollusk-svm-result"
 version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3845,6 +3896,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "pinocchio-associated-token-account"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d67472f0743a13e87da3acf259e23dc711066236a1118d885ea20a264bf7954b"
+dependencies = [
+ "pinocchio 0.9.3",
+ "pinocchio-pubkey",
+]
+
+[[package]]
 name = "pinocchio-log"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3859,6 +3920,26 @@ dependencies = [
  "five8_const 0.1.4",
  "pinocchio 0.9.3",
  "sha2-const-stable",
+]
+
+[[package]]
+name = "pinocchio-system"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4be2a6dad40b5e75d1486f021619c4bd504c34c1362c9b94ed7fa525b1cc63cc"
+dependencies = [
+ "pinocchio 0.9.3",
+ "pinocchio-pubkey",
+]
+
+[[package]]
+name = "pinocchio-token"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4eb3a10d04ea7a633c01c4fe68eb650b4606cee4a3977bd1a1259cba324abafb"
+dependencies = [
+ "pinocchio 0.9.3",
+ "pinocchio-pubkey",
 ]
 
 [[package]]
@@ -4049,7 +4130,7 @@ dependencies = [
  "solana-transaction",
  "solana-transaction-error",
  "spl-token-2022-interface 2.1.0",
- "spl-token-interface",
+ "spl-token-interface 3.0.0",
 ]
 
 [[package]]
@@ -5007,7 +5088,7 @@ dependencies = [
  "spl-generic-token",
  "spl-token-2022-interface 3.1.2",
  "spl-token-group-interface",
- "spl-token-interface",
+ "spl-token-interface 3.0.0",
  "spl-token-metadata-interface 1.0.1",
  "thiserror 2.0.20",
  "wincode",
@@ -7722,6 +7803,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "spl-associated-token-account-interface"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6433917b60441d68d99a17e121d9db0ea15a9a69c0e5afa34649cf5ba12612f"
+dependencies = [
+ "solana-instruction",
+ "solana-pubkey 3.0.0",
+]
+
+[[package]]
 name = "spl-discriminator"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7922,6 +8013,26 @@ dependencies = [
  "solana-program-error",
  "solana-zero-copy",
  "spl-discriminator",
+ "thiserror 2.0.20",
+]
+
+[[package]]
+name = "spl-token-interface"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8c564ac05a7c8d8b12e988a37d82695b5ba4db376d07ea98bc4882c81f96c7f3"
+dependencies = [
+ "arrayref",
+ "bytemuck",
+ "num-derive 0.4.2",
+ "num-traits",
+ "num_enum",
+ "solana-instruction",
+ "solana-program-error",
+ "solana-program-option",
+ "solana-program-pack",
+ "solana-pubkey 3.0.0",
+ "solana-sdk-ids",
  "thiserror 2.0.20",
 ]
 
@@ -8209,7 +8320,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "once_cell",
  "rustix",
  "windows-sys 0.61.2",
