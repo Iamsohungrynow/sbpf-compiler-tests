@@ -1,0 +1,30 @@
+[package]
+name = "winternitz-vault"
+description = "Winternitz quantum-resistant vault for Solana"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
+[dependencies]
+arrayref = "0.3.9"
+pinocchio = "=0.9.3"
+pinocchio-system = "0.4"
+solana-nostd-sha256 = { version = "0.2.0", features = ["static-syscalls"] }
+solana-winternitz = { path = "crates/solana-winternitz" }
+
+[target.'cfg(target_arch = "bpf")'.dependencies]
+solana-compiler-builtins = { workspace = true }
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+harness = { workspace = true }
+mollusk-svm = { workspace = true }
+solana-account = { workspace = true }
+solana-instruction = { workspace = true }
+solana-pubkey = { workspace = true }
+solana-program-error = "3.0.0"

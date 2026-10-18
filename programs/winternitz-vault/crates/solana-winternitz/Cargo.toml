@@ -1,0 +1,19 @@
+# Based on crates.io solana-winternitz 0.1.1 (MIT).
+# Local compatibility changes: core/alloc imports, on-chain no_std, and Keccak 0.2 static syscalls.
+[package]
+name = "solana-winternitz"
+description = "224-bit Keccak-based Winternitz signatures for Solana"
+authors = ["Dean Little <@deanmlittle>"]
+version = "0.1.1"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+solana-nostd-keccak = { version = "0.2.0", features = ["static-syscalls"] }
+arrayref = "0.3.9"
+rand = { version = "0.8.5", optional = true }
+
+[target.'cfg(not(target_os = "solana"))'.dependencies]
+rand = { version = "0.8.5" }
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }
