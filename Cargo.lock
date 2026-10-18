@@ -6243,6 +6243,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-nostd-keccak"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51d95177d5c06c6003e5ef509ac4a2daf0f863f5997230848e35a32ee2c91010"
+dependencies = [
+ "sha3",
+]
+
+[[package]]
+name = "solana-nostd-sha256"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0f145a2b61326edf4670de39ae8189dd1e9593a9fcfc9494f97805ee07cc7455"
+dependencies = [
+ "sha2 0.10.9",
+]
+
+[[package]]
 name = "solana-nullable"
 version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7656,6 +7674,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6679e72a01dcfe7ff180f0e9d3a0d165e4e9664426930014f2702e7571c259c7"
 dependencies = [
  "wincode",
+]
+
+[[package]]
+name = "solana-winternitz"
+version = "0.1.1"
+dependencies = [
+ "arrayref",
+ "rand 0.8.8",
+ "solana-nostd-keccak",
 ]
 
 [[package]]
@@ -9138,6 +9165,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "23b97319f7b8343df12cc98938e5c3eb436064524c8d2b4e30a1d3a36eecdf81"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "winternitz-vault"
+version = "0.1.0"
+dependencies = [
+ "arrayref",
+ "harness",
+ "mollusk-svm",
+ "pinocchio 0.9.3",
+ "pinocchio-system",
+ "solana-account 4.3.2",
+ "solana-compiler-builtins",
+ "solana-instruction",
+ "solana-nostd-sha256",
+ "solana-program-error",
+ "solana-pubkey 4.2.1",
+ "solana-winternitz",
 ]
 
 [[package]]

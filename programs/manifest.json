@@ -154,6 +154,10 @@
     {
       "name": "escrow",
       "benchmarks": []
+    },
+    {
+      "name": "winternitz-vault",
+      "benchmarks": []
     }
   ]
 }
