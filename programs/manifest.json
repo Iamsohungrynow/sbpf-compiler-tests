@@ -152,6 +152,10 @@
       "benchmarks": []
     },
     {
+      "name": "and64-negative-mask",
+      "benchmarks": []
+    },
+    {
       "name": "signed-div",
       "benchmarks": []
     },
